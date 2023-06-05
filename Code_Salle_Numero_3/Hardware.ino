@@ -24,71 +24,6 @@ bool Fonction_Catpeur02()
   }
 }
 
-void Fonction_Lumiere(int state)
-{
-  if(Lumiere)
-  {
-      analogWrite(Pin_Lumiere,state);
-      Serial.println(state);
-  }
-  else
-  {
-      analogWrite(Pin_Lumiere,0);
-  }
-}
-
-void Fonction_Musique(bool state)
-{
-  if(Musique)
-  {
-    if(state)
-    {
-      if(Vitesse_Musique == 1)
-      {
-        digitalWrite(Pin_Musique1, LOW);
-      }
-      else if(Vitesse_Musique == 2)
-      {
-        digitalWrite(Pin_Musique2, LOW);
-      }
-      else if(Vitesse_Musique == 3)
-      {
-        digitalWrite(Pin_Musique3, LOW);
-      }
-    }
-    else
-    {
-      digitalWrite(Pin_Musique1, HIGH);
-      digitalWrite(Pin_Musique2, HIGH);
-      digitalWrite(Pin_Musique3, HIGH);
-    }
-  }
-  else
-  {
-    digitalWrite(Pin_Musique1, HIGH);
-    digitalWrite(Pin_Musique2, HIGH);
-    digitalWrite(Pin_Musique3, HIGH);
-  }
-}
-
-void Fonction_Souffle(bool state)
-{
-  if(Souffle)
-  {
-    if(state)
-    {
-      digitalWrite(Pin_Souffle,HIGH);
-    }
-    else
-    {
-      digitalWrite(Pin_Souffle,LOW);
-    }
-  }
-  else
-  {
-    digitalWrite(Pin_Souffle,LOW);
-  }
-}
 void Fonction_Diffuseur(bool state)
 {
   if(Diffuseur)
@@ -108,41 +43,53 @@ void Fonction_Diffuseur(bool state)
   }
 }
 
+void Fonction_Musique(bool state)
+{
+  if(Musique)
+  {
+    if(state == 1)
+    {
+      digitalWrite(Pin_Musique, LOW);
+    }
+    else
+    {
+      digitalWrite(Pin_Musique, HIGH);
+    }
+  }
+  else
+  {
+    digitalWrite(Pin_Musique, HIGH);
+  }
+}
+
 void Fonction_Ventilateur(bool state)
 {
   if(Ventilateur)
   {
-    if(state)
+    if(state == 1)
     {
-      digitalWrite(Pin_Ventilateur,HIGH);
+      digitalWrite(Pin_Ventilateur, HIGH);
     }
     else
     {
-      digitalWrite(Pin_Ventilateur,LOW);
+      digitalWrite(Pin_Ventilateur, LOW);  
     }
   }
   else
   {
-    digitalWrite(Pin_Ventilateur,LOW);
+    digitalWrite(Pin_Ventilateur, LOW);  
   }
 }
 
-void Fonction_Deshumidificateur(bool state)
+void Fonction_Souffle(int state)
 {
-  if(Deshumidificateur)
+  if(Souffle)
   {
-    if(state == 1)
-    {
-      digitalWrite(Pin_Deshumidificateur, HIGH);
-    }
-    else
-    {
-      digitalWrite(Pin_Deshumidificateur, LOW);  
-    }
+    analogWrite(Pin_Souffle,state);
   }
   else
   {
-    digitalWrite(Pin_Deshumidificateur, LOW);  
+    analogWrite(Pin_Souffle,0);
   }
 }
 
