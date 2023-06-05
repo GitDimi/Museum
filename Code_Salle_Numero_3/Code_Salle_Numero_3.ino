@@ -27,20 +27,15 @@ void setup()
 //Main
 void loop() 
 {
-
-  Gestion_Capteur();  
-
-  Gestion_Lumiere(); 
-
-  Gestion_Musique(); 
-  
-  Gestion_Souffle(); 
-
-  Gestion_Diffusion(); 
-
-  Gestion_Ventilateur(); 
-
-  Gestion_Deshumidificateur(); 
+  Gestion_Capteur();
 
   Gestion_LED();
+
+  Gestion_Musique();
+  
+  Gestion_Souffle();
+
+  Gestion_Ventilateur();
+
+  Gestion_Diffusion();
 }
