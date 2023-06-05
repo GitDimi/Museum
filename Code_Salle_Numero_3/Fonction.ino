@@ -24,110 +24,17 @@ void Gestion_Capteur()
       Timer_Temps_Detection_max = 0;
     }
   }
-
-  //Debug
-  if(Old_State_Capteur01 != Etat_du_capteur_de_mouvement01)
-  {
-    Serial.println("Catpeur01");
-    Serial.println(Etat_du_capteur_de_mouvement01);
-  }
-
-  if(Old_State_Capteur02 != Etat_du_capteur_de_mouvement02)
-  {
-    Serial.println("Catpeur02");
-    Serial.println(Etat_du_capteur_de_mouvement02);
-  }
-
-  
-  if(Etat_du_capteur_de_mouvement01)
-  {
-    Old_State_Capteur01 = 1;
-  }
-  else
-  {
-    Old_State_Capteur01 = 0;
-  }
-
-  if(Etat_du_capteur_de_mouvement02)
-  {
-    Old_State_Capteur02 = 1;
-  }
-  else
-  {
-    Old_State_Capteur02 = 0;
-  }
 }
 
-void Gestion_Lumiere()
+void Gestion_LED()
 {
   if(Mouvement)
   {
-    //Au démarrage on lance le chrono du delay
-    if(Old_State_Timer_Delay_Lumiere == 0)
-    {
-      Timer_Delay_Lumiere = millis();
-      Old_State_Timer_Delay_Lumiere= 1;
-    }
-    //Chrono du delay
-    if(millis() - Timer_Delay_Lumiere >= Delay_Lumiere && Timer_Delay_Lumiere != 0)
-    {   
-      //Au démarrage, après le delay, on lance le chrono du Lumiere
-      if(Old_State_Timer_Temps_Lumiere == 0)
-      {
-        Fonction_Lumiere(Intensitie_Lumiere_Forte);
-        Old_State_Timer_Temps_Lumiere = 1;
-        Timer_Temps_Lumiere_Up = millis();
-      }
-      //Chrono de la lumière qui augemente
-      if(millis() - Timer_Temps_Lumiere_Up >= (double)1000/((double)Intensitie_Lumiere_Forte - (double)Intensitie_Lumiere_Faible) && Timer_Temps_Lumiere_Up != 0)
-      {
-        Lumiere_Up++;
-        Fonction_Lumiere(Intensitie_Lumiere_Faible + Lumiere_Up);
-        if(Lumiere_Up == (Intensitie_Lumiere_Forte - Intensitie_Lumiere_Faible))
-        {
-          Timer_Temps_Lumiere_Up = 0; 
-          Lumiere_Up = 0;
-          Timer_Temps_Lumiere_Down = millis();
-        }
-        else
-        {
-          Timer_Temps_Lumiere_Up = millis();
-        }
-      } 
-      //Chrono de la lumière qui diminue
-      if(millis() - Timer_Temps_Lumiere_Down >= (double)(Temps_Lumiere_Forte - 1000)/((double)Intensitie_Lumiere_Forte-(double)Intensitie_Lumiere_Faible) && Timer_Temps_Lumiere_Down != 0)
-      {
-        Lumiere_Down++;
-        Fonction_Lumiere(Intensitie_Lumiere_Forte - Lumiere_Down);
-        if(Lumiere_Down == (Intensitie_Lumiere_Forte-Intensitie_Lumiere_Faible))
-        {
-          Timer_Temps_Lumiere_Down = 0; 
-          Lumiere_Down = 0;
-          Fonction_Lumiere(Intensitie_Lumiere_Faible); 
-          Timer_Temps_Non_Lumiere = millis();
-        }
-        else
-        {
-          Timer_Temps_Lumiere_Down = millis();
-        }
-      } 
-      //Chrono de la lumière qui reste faible 
-      else if(millis() - Timer_Temps_Non_Lumiere >= Temps_Lumiere_Faible && Timer_Temps_Non_Lumiere != 0)
-      {
-        Timer_Temps_Lumiere_Up = millis();
-        Timer_Temps_Non_Lumiere = 0;  
-      } 
-    }
+    Fonction_LED(1);
   }
   else
   {
-    Timer_Temps_Non_Lumiere = 0;
-    Timer_Temps_Lumiere_Down = 0;
-    Timer_Temps_Lumiere_Up = 0;
-    Timer_Delay_Lumiere = 0;
-    Lumiere_Down = 0;
-    Lumiere_Up = 0;
-    Fonction_Lumiere(Intensitie_Lumiere_Faible); 
+    Fonction_LED(0);
   }
 }
 
@@ -145,51 +52,35 @@ void Gestion_Musique()
     //Une fois le chrono du delay est passé on lance la musique
     if(millis() - Timer_Delay_Musique >= Delay_Musique && Timer_Delay_Musique != 0)
     {
-      Timer_Ajuste_Musique = millis();
       Fonction_Musique(1);
+      //En fonction du mode on va la relancer ou pas 
+      if(!RePlay)
+      {
+        //Plus de 125ms pour que la musique se lance
+        delay(150);
+        Fonction_Musique(0);
+      }
       Timer_Delay_Musique = 0;
     }
-    if(Vitesse_Musique == 1)
-    {
-      //Chrono qui eteint la pin pour pas que la musique se relancer
-      if(millis() - Timer_Ajuste_Musique >= 1000 && Timer_Ajuste_Musique != 0)
-      {  
-        Fonction_Musique(0);
-        Timer_Stop_Musique = millis();
-        Timer_Ajuste_Musique = 0;
-      }
-      //Chrono qui ralume la musique 
-      if(millis() - Timer_Stop_Musique >= 19000 && Timer_Stop_Musique != 0)
-      {  
-        Fonction_Musique(1);
-        Timer_Ajuste_Musique = millis();
-        Timer_Stop_Musique = 0;
-      }
-    }
-    else if(Vitesse_Musique == 2)
-    {
-      //Chrono qui eteint la pin pour pas que la musique se relancer
-      if(millis() - Timer_Ajuste_Musique >= 1000 && Timer_Ajuste_Musique != 0)
-      {  
-        Fonction_Musique(0);
-        Timer_Stop_Musique = millis();
-        Timer_Ajuste_Musique = 0;
-      }
-      //Chrono qui ralume la musique 
-      if(millis() - Timer_Stop_Musique >= 14000 && Timer_Stop_Musique != 0)
-      {  
-        Fonction_Musique(1);
-        Timer_Ajuste_Musique = millis();
-        Timer_Stop_Musique = 0;
-      }
-    }
+    Old_State_No_Mouvement = 0;
   }
   else
   {
     Fonction_Musique(0);
-    Old_State_Timer_Delay_Musique = 0;
-    Timer_Delay_Musique = 0;
-    Timer_Ajuste_Musique = 0;
+    //Quand on change l'état de personne détecté a plus personne dans la salle
+    if(Old_State_No_Mouvement == 0)
+    {
+      //Gestion de la fin de la musique 
+      if(StopPlay)
+      {
+        digitalWrite(Pin_Alim_Musique, LOW);
+        delay(1);
+        digitalWrite(Pin_Alim_Musique, HIGH);
+      }
+
+      Old_State_No_Mouvement = 1;
+      Old_State_Timer_Delay_Musique = 0;
+    }
   }
 }
 
@@ -203,28 +94,35 @@ void Gestion_Souffle()
       Timer_Delay_Souffle = millis();
       Old_State_Timer_Delay_Souffle = 1;
     }
-    //Au démarrage, après le delay, on lance le chrono du souffle
     if(millis() - Timer_Delay_Souffle >= Delay_Souffle && Timer_Delay_Souffle != 0)
     {   
+      //Au démarrage, après le delay, on lance le chrono du souffle
       if(Old_State_Timer_Temps_Souffle == 0)
       {
         Timer_Temps_Souffle = millis();
-        Fonction_Souffle(1);
         Old_State_Timer_Temps_Souffle = 1;
       }
-      //Chrono du souffle allumé 
-      if(millis() - Timer_Temps_Souffle >= Temps_Souffle && Timer_Temps_Souffle != 0)
+      //on rentre dans ce timer à chaque fois que le souffle diminu de 1 (Compteur_Souffle). 
+      if(millis() - Timer_Temps_Souffle >= (double)Temps_Souffle/(double)255 && Timer_Temps_Souffle != 0)
       {
-        Fonction_Souffle(0);
-        Timer_Temps_Non_Souffle = millis();
-        Timer_Temps_Souffle = 0;
+        Compteur_Souffle ++;
+        Fonction_Souffle(-Compteur_Souffle+255);
+        if(Compteur_Souffle == 255)
+        {
+          Timer_Temps_Souffle = 0;
+          Compteur_Souffle = 0;
+          Timer_Temps_Non_Souffle = millis();
+          Fonction_Souffle(0);
+        }
+        else
+        {
+         Timer_Temps_Souffle = millis();   
+        }
       }
-      //Chrono du souffle eteint
       else if(millis() - Timer_Temps_Non_Souffle >= Temps_Non_Souffle && Timer_Temps_Non_Souffle != 0)
       {
         Timer_Temps_Souffle = millis();
-        Timer_Temps_Non_Souffle = 0;  
-        Fonction_Souffle(1); 
+        Timer_Temps_Non_Souffle = 0;    
       } 
     }
   }
@@ -239,134 +137,143 @@ void Gestion_Souffle()
   }
 }
 
-void Gestion_Diffusion()
-{
-  if(Mouvement)
-  {
-    //Au démarrage on lance le chrono du delay
-    if(Old_State_Timer_Delay_Diffuseur == 0)
-    {
-      Timer_Delay_Diffuseur = millis();
-      Old_State_Timer_Delay_Diffuseur= 1;
-    }
-    if(millis() - Timer_Delay_Diffuseur >= Delay_Diffuseur && Timer_Delay_Diffuseur != 0)
-    {   
-      //Au démarrage, après le delay, on lance le chrono du diffuseur
-      if(Old_State_Timer_Temps_Diffuseur == 0)
-      {
-        Timer_Temps_Diffuseur = millis();
-        Fonction_Diffuseur(1);
-        Old_State_Timer_Temps_Diffuseur = 1;
-      }
-      //Chrono du diffuseur allumé
-      if(millis() - Timer_Temps_Diffuseur >= Temps_Diffuseur && Timer_Temps_Diffuseur != 0)
-      {
-        Fonction_Diffuseur(0);
-        Timer_Temps_Non_Diffuseur = millis();
-        Timer_Temps_Diffuseur = 0;
-      }
-      //Chrono du diffuseur éteint
-      else if(millis() - Timer_Temps_Non_Diffuseur >= Temps_Non_Diffuseur && Timer_Temps_Non_Diffuseur != 0)
-      {
-        Timer_Temps_Diffuseur = millis();
-        Timer_Temps_Non_Diffuseur = 0;  
-        Fonction_Diffuseur(1); 
-      } 
-    }
-  }
-  else
-  {
-    Old_State_Timer_Delay_Diffuseur = 0;
-    Old_State_Timer_Temps_Diffuseur = 0;
-    Timer_Temps_Non_Diffuseur = 0;
-    Timer_Temps_Diffuseur = 0;
-    Timer_Delay_Diffuseur = 0;
-    Fonction_Diffuseur(0);
-  }
-}
-
 void Gestion_Ventilateur()
-{
-  if(Mouvement)
-  {
-    //Au démarrage on lance le chrono du delay
-    if(Old_State_Timer_Delay_Ventilateur == 0)
-    {
-      Timer_Delay_Ventilateur = millis();
-      Old_State_Timer_Delay_Ventilateur= 1;
-    }
-    if(millis() - Timer_Delay_Ventilateur >= Delay_Ventilateur && Timer_Delay_Ventilateur != 0)
-    {   
-      //Au démarrage, après le delay, on lance le chrono du Ventilateur
-      if(Old_State_Timer_Temps_Ventilateur == 0)
-      {
-        Timer_Temps_Ventilateur = millis();
-        Fonction_Ventilateur(1);
-        Old_State_Timer_Temps_Ventilateur = 1;
-      }
-      //Chrono du ventilateur allumé
-      if(millis() - Timer_Temps_Ventilateur >= Temps_Ventilateur && Timer_Temps_Ventilateur != 0)
-      {
-        Fonction_Ventilateur(0);
-        Timer_Temps_Non_Ventilateur = millis();
-        Timer_Temps_Ventilateur = 0;
-      }
-      //Chrono du ventilateur éteint
-      else if(millis() - Timer_Temps_Non_Ventilateur >= Temps_Non_Ventilateur && Timer_Temps_Non_Ventilateur != 0)
-      {
-        Timer_Temps_Ventilateur = millis();
-        Timer_Temps_Non_Ventilateur = 0;  
-        Fonction_Ventilateur(1); 
-      } 
-    }
-  }
-  else
-  {
-    Old_State_Timer_Delay_Ventilateur = 0;
-    Old_State_Timer_Temps_Ventilateur = 0;
-    Timer_Temps_Non_Ventilateur = 0;
-    Timer_Temps_Ventilateur = 0;
-    Timer_Delay_Ventilateur = 0;
-    Fonction_Ventilateur(0);
-  }
-}
-
-void Gestion_Deshumidificateur()
 {
   //S’il y a du monde dans la salle on arrête tout
   if(Mouvement)
   {
-    Fonction_Deshumidificateur(0);
-    Old_State_Timer_Delay_Deshumidificateur = 0;
-    Timer_Delay_Deshumidificateur = 0;
-
+    Fonction_Ventilateur(0);
+    Old_State_Timer_Delay_Ventilateur = 0;
   }
   else
   {
     //S’il a plus personne on lance le chrono
-    if(Old_State_Timer_Delay_Deshumidificateur == 0)
+    if(Old_State_Timer_Delay_Ventilateur == 0)
     {
-      Timer_Delay_Deshumidificateur = millis();
-      Old_State_Timer_Delay_Deshumidificateur = 1;
+      Timer_Delay_Ventilateur = millis();
+      Old_State_Timer_Delay_Ventilateur = 1;
     }
 
-    //Une fois le delay passé on allume le deshmidificateur 
-    if(millis() - Timer_Delay_Deshumidificateur >= Delay_Deshumidificateur && Timer_Delay_Deshumidificateur != 0)
+    //Une fois le delay passé on allume le ventilateur 
+    if(millis() - Timer_Delay_Ventilateur >= Delay_Ventilateur && Timer_Delay_Ventilateur != 0)
     {
-      Fonction_Deshumidificateur(1);
-      Timer_Delay_Deshumidificateur = 0;
+      //Allumage du ventilateur
+      Fonction_Ventilateur(1);
+      //On stop ce chrono
+      Timer_Delay_Ventilateur = 0;
     }
   }
 }
 
-void Gestion_LED()
+void Gestion_Diffusion()
 {
   if(Mouvement)
   {
-    Fonction_LED(1);
+    //Gestion des deux modes de diffusion possible
+    if(Rediffusion)
+    {
+      //Gestion de la rediffusion
+      Gestion_Rediffusion();
+    }
+    else
+    {
+      //Gestion de la diffusion
+      Gestion_Diffusion_Normal();
+    }
   }
   else
   {
-    Fonction_LED(0);
+    //Autrement on arrête bien tout
+    Fonction_Diffuseur(0);
+    Timer_Delay_Diffuseur = 0;
+    Timer_Temps_Diffuseur = 0;
+    Timer_Delay_Rediffuseur = 0;
+    Timer_Temps_Rediffuseur = 0;
+    Old_State_Diffusion = 0;
   }
 }
+
+void Gestion_Diffusion_Normal()
+{
+  //Quand on change l'état de personne détecté a plus personne dans la salle
+  if(Old_State_Diffusion == 0)
+  {
+    //On lance le chrono
+    Timer_Delay_Diffuseur = millis();
+    Old_State_Diffusion = 1;
+  }
+
+  //Quand le delay du diffuseur est passé
+  if(millis() - Timer_Delay_Diffuseur >= Delay_Diffuseur && Timer_Delay_Diffuseur != 0)
+  {
+    //On ouvre le diffuseur
+    Fonction_Diffuseur(1);
+    //On lance le chrono du temps de diffusion
+    Timer_Temps_Diffuseur = millis();
+    //On stop ce chrono
+    Timer_Delay_Diffuseur = 0;
+  }
+  
+  //Une fois que le temps est fini on stop le diffuseur 
+  if(millis() - Timer_Temps_Diffuseur >= Temps_Diffuseur && Timer_Temps_Diffuseur != 0)
+  {
+    //On ferme le diffuseur
+    Fonction_Diffuseur(0);
+    //On stop ce chrono
+    Timer_Temps_Diffuseur = 0;
+  }
+}
+
+void Gestion_Rediffusion()
+{
+  //Quand on change l'état de personne détecté a plus personne dans la salle
+  if(Old_State_Diffusion == 0)
+  {
+    //On lance le chrono
+    Timer_Delay_Diffuseur = millis();
+    Old_State_Diffusion = 1;
+  }
+
+  //Quand le delay du diffuseur est passé on lance le diffuseur lui même
+  if(millis() - Timer_Delay_Diffuseur >= Delay_Diffuseur && Timer_Delay_Diffuseur != 0)
+  {
+    //On ouvre le diffuseur
+    Fonction_Diffuseur(1);
+    //On lance le chrono du temps de diffusion
+    Timer_Temps_Diffuseur = millis();
+    //On stop ce chono
+    Timer_Delay_Diffuseur = 0;
+  }
+
+  //Une fois que le temps de diffusion est fini on stop le diffuseur 
+  if(millis() - Timer_Temps_Diffuseur >= Temps_Diffuseur && Timer_Temps_Diffuseur != 0)
+  {
+    //On ferme le diffuseur
+    Fonction_Diffuseur(0);
+    //On lance le chono du rediffuseur
+    Timer_Delay_Rediffuseur = millis();
+    //On stop ce chono
+    Timer_Temps_Diffuseur = 0;
+  }
+
+  //Un fois que c'est le moment on rediffuse
+  if(millis() - Timer_Delay_Rediffuseur >= Delay_Rediffuseur && Timer_Delay_Rediffuseur != 0)
+  {
+    //On ouvre le diffuseur
+    Fonction_Diffuseur(1);
+    //On lance le chrono du temps de rediffusion
+    Timer_Temps_Rediffuseur = millis();
+    //On relance ce chono
+    Timer_Delay_Rediffuseur = millis();
+  }
+
+  //Une fois que le temps de rediffusion est fini on le stop
+  if(millis() - Timer_Temps_Rediffuseur >= Temps_Rediffuseur && Timer_Temps_Rediffuseur != 0)
+  {
+    //On ferme le diffuseur
+    Fonction_Diffuseur(0);
+    //On stop ce chrono
+    Timer_Temps_Rediffuseur = 0;
+  }
+}
+
