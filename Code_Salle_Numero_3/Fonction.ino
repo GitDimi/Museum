@@ -10,7 +10,7 @@ void Gestion_Capteur()
   Etat_du_capteur_de_mouvement01 = Fonction_Catpeur01();
   Etat_du_capteur_de_mouvement02 = Fonction_Catpeur02();
 
-  //Gestion de combien de temps on va considérer qu'un personne est dans la salle en fonction des deux capteurs
+  //Gestion de combien de temps on va considérer qu’une personne est dans la salle en fonction des deux capteurs
   if(Etat_du_capteur_de_mouvement01 == 1 || Etat_du_capteur_de_mouvement02 == 1)
   {
     Mouvement = 1;
@@ -71,7 +71,7 @@ void Gestion_Lumiere()
     //Chrono du delay
     if(millis() - Timer_Delay_Lumiere >= Delay_Lumiere && Timer_Delay_Lumiere != 0)
     {   
-      //Au démarrage, après le delay, on lance le chrono du Lumiere
+      //Au démarrage, après le delay, on lance le chrono du Lumière
       Fonction_Lumiere(Intensitie_Lumiere_Faible);
       Timer_Temps_Lumiere_Up = millis();
       Timer_Temps_Lumiere = millis();
@@ -87,7 +87,7 @@ void Gestion_Lumiere()
       Lumiere_Up = 0;
       Fonction_Lumiere(Intensitie_Lumiere_Faible); 
     } 
-    //Chrono de la lumière qui augemente
+    //Chrono de la lumière qui augmente
     else if(millis() - Timer_Temps_Lumiere_Up >= (double)1000/((double)Intensitie_Lumiere_Forte - (double)Intensitie_Lumiere_Faible) && Timer_Temps_Lumiere_Up != 0)
     {
       Lumiere_Up++;
@@ -159,14 +159,14 @@ void Gestion_Musique()
     }
     if(Vitesse_Musique == 1)
     {
-      //Chrono qui eteint la pin pour pas que la musique se relancer
+      //Chrono qui éteint la pin pour pas que la musique se relancer
       if(millis() - Timer_Ajuste_Musique >= 1000 && Timer_Ajuste_Musique != 0)
       {  
         Fonction_Musique(0);
         Timer_Stop_Musique = millis();
         Timer_Ajuste_Musique = 0;
       }
-      //Chrono qui ralume la musique 
+      //Chrono qui rallume la musique 
       if(millis() - Timer_Stop_Musique >= 19000 && Timer_Stop_Musique != 0)
       {  
         Fonction_Musique(1);
@@ -176,14 +176,14 @@ void Gestion_Musique()
     }
     else if(Vitesse_Musique == 2)
     {
-      //Chrono qui eteint la pin pour pas que la musique se relancer
+      //Chrono qui éteint la pin pour pas que la musique se relancer
       if(millis() - Timer_Ajuste_Musique >= 1000 && Timer_Ajuste_Musique != 0)
       {  
         Fonction_Musique(0);
         Timer_Stop_Musique = millis();
         Timer_Ajuste_Musique = 0;
       }
-      //Chrono qui ralume la musique 
+      //Chrono qui rallume la musique 
       if(millis() - Timer_Stop_Musique >= 14000 && Timer_Stop_Musique != 0)
       {  
         Fonction_Musique(1);
@@ -225,7 +225,7 @@ void Gestion_Souffle()
       Timer_Temps_Non_Souffle = millis();
       Timer_Temps_Souffle = 0;
     }
-    //Chrono du souffle eteint
+    //Chrono du souffle éteint
     else if(millis() - Timer_Temps_Non_Souffle >= Temps_Non_Souffle && Timer_Temps_Non_Souffle != 0)
     {
       Timer_Temps_Souffle = millis();
@@ -428,7 +428,7 @@ void Gestion_Deshumidificateur()
       Old_State_Timer_Delay_Deshumidificateur = 1;
     }
 
-    //Une fois le delay passé on allume le deshmidificateur 
+    //Une fois le delay passé on allume le déshumidificateur 
     if(millis() - Timer_Delay_Deshumidificateur >= Delay_Deshumidificateur && Timer_Delay_Deshumidificateur != 0)
     {
       Fonction_Deshumidificateur(1);
@@ -448,3 +448,4 @@ void Gestion_LED()
     Fonction_LED(0);
   }
 }
+
