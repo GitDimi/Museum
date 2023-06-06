@@ -26,5 +26,5 @@ VENTILATEUR
 LUMIERE
 */
 #define Temps_Lumiere_Forte Temps_Expiration
-//Combien de temps allume t-on la lumière en mode faible 
+//Combien de temps allume-t-on la lumière en mode faible 
 #define Temps_Lumiere_Faible Temps_Inspiration
