@@ -71,11 +71,11 @@ unsigned long Timer_Delay_Deshumidificateur = 0;
   /*
   Cette fonction gère la musique (bruit de respiration).
   Une fois une personne détectée on lance la musique après avoir respecté le temps de delay prévu dans parametre.h.
-  Plusieurs modes sont possible : 
+  Plusieurs modes sont possibles : 
   mode 1 : 12 s d'inspiration et 8 s d'expiration
   mode 2 : 9 s d'inspiration et 6 s d'expiration
   mode 3 : Respiration humaine
-  Ses mode sont gérable dans parametre.h.
+  Ses modes sont gérables dans parametre.h.
   */
   void Gestion_Musique();
   /*
@@ -95,8 +95,8 @@ unsigned long Timer_Delay_Deshumidificateur = 0;
   */
   void Gestion_Ventilateur();
   /*
-  Cette fonction gère la deshumidification
-  Quand personne n'est détecté on lance la deshumidification de la salle après un delay prévu dans parametre.h.
+  Cette fonction gère la déshumidification
+  Quand personne n'est détecté on lance la déshumidification de la salle après un delay prévu dans parametre.h.
   Quand une personne est détectée on arrête immédiatement la deshumidification.
   */
   void Gestion_Deshumidificateur();
@@ -107,4 +107,5 @@ unsigned long Timer_Delay_Deshumidificateur = 0;
   void Gestion_LED();
 
 #endif 
+
 
