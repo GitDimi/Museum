@@ -7,8 +7,8 @@ Activer ou désactiver les perifiériques
 #define Diffuseur 1
 //Musique
 #define Musique 1
-//Ventilateur
-#define Ventilateur 1
+//Deshumidification
+#define Deshumidificateur 1
 //Souffle
 #define Souffle 1
 //Dectecteur 1 
@@ -17,45 +17,70 @@ Activer ou désactiver les perifiériques
 #define Detecteur_2 1
 //LED
 #define LED 1
+//Ventilateur 
+#define Ventilateur 1
+//Lumière
+#define Lumiere 1
+
+
+// -------------- GESTION DES CAPTEUR -------------------- //
 
 /*
-Gestion des 
-temps
+CAPTEUR
 */
-//Combien de temps se lance le diffuseur d'odeur après une detection (en ms)
-#define Delay_Diffuseur 1000
-//Combien de temps se lance la musique après une detection (en ms)
+//Combien de temps on dit que quelqu'un est dans la piece après ne plus détécté personne 
+#define Temps_Detection_max 20000
+
+/*
+GENERAL
+*/
+//De combien de temps sont les temps d'inpiration et expiration
+#define Temps_Inspiration 12000 
+#define Temps_Expiration 8000
+
+/*
+MUSIQUE
+*/
+//Combien de temps se lance la musique après une detection 
 #define Delay_Musique 1000
-//Combien de temps se lance le ventilateur après la fin d'une detection (en ms)
-#define Delay_Ventilateur 1000
-
-//Combien de temps le diffuseur diffuse (en ms)
-#define Temps_Diffuseur 3000
-
-//Combien de temps on dit que quelqu'un est dans la piece après ne plus détécté personne (en ms)
-#define Temps_Detection_max 15000
+/*A quelle vitesse la repiration va ?
+mode 1 : 12 s d'inspiration et 8 s d'expiration
+mode 2 : 9 s d'inspiration et 6 s d'expiration
+mode 3 : Respiration humaine
+*/
+#define Vitesse_Musique 1
 
 /*
-paramètre des perifiériques
-1 = activé
-0 = désactivé
+SOUFFLE
 */
-//Es ce qu'on diffuse plusieurs fois quand le visiteur est dans la salle
-#define Rediffusion 1
-//Et cela, tout les combien de temps ? (en ms)
-#define Delay_Rediffuseur 4000
-//Combien de temps dur les diffusions répété
-#define Temps_Rediffuseur 1000
+//Combien de temps se lance le souffle après une detection 
+#define Delay_Souffle 12000
 
-//Es ce qu'on relance la musique si elle est fini alors qu'un visiteur est encore présent : oui (1) non (0)
-#define RePlay 1
-//Es ce qu'on stop la musique quand il n'y a plus personne (1) ou alors on laisse la musique finir (1)
-#define StopPlay 1
+/*
+DIFFUSEUR
+*/
+//Combien de temps se lance le diffuseur après une detection 
+#define Delay_Diffuseur 4000
 
-//Combien de temps se lance le souffle après une détection
-#define Delay_Souffle 1000
-//Combien de temps dure une expiration (Ventilateur allumé)
-#define Temps_Souffle 1000
-//Combien de temps dure une inspiration (Ventilateur éteint)
-#define Temps_Non_Souffle 1000
+/*
+VENTILATEUR
+*/
+//Combien de temps se lance le ventilateur après une detection 
+#define Delay_Ventilateur 5000
+
+/*
+LUMIERE
+*/
+//Après combien de temps on lance le cycle de lumière après une detection 
+#define Delay_Lumiere 12000
+//Quelle est l'intensité de la lumière forte (de 0 a 255)
+#define Intensitie_Lumiere_Forte 60
+//Quelle est l'intensité de la lumière forte (de 0 a 255) (d'experiance 0 à 12 = éteint)
+#define Intensitie_Lumiere_Faible 13
+
+/*
+DESHUMIDIFICATEUR
+*/
+//Combien de temps se lance la deshumidification après une detection 
+#define Delay_Deshumidificateur 20000
 
