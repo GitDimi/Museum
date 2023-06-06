@@ -16,7 +16,7 @@
 #include "Hardware.h"
 //Permet d'ajouter les fonction d'initalisation 
 #include "Init.h"
-//Permet d'ajouter les fonction logique principal
+//Permet d'ajouter les fonctions logiques principal
 #include "Fonction.h"
 
 void setup() 
