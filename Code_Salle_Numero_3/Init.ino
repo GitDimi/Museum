@@ -58,7 +58,7 @@ void Init()
   
   Serial.println("Capteurs prêt");
 
-  //Pour eviter que les timers perenne comme 1ère valeur 0 dans le millis();
+  //Pour éviter que les timers prennent comme 1ère valeur 0 dans le millis();
   delay(1);
 }
 
@@ -140,3 +140,5 @@ void Timing_Warning()
     Serial.println("Valeur de calcule.h modifié ! Temps_Inspiration");
   }
 }
+
+
