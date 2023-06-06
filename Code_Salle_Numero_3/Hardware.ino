@@ -24,22 +24,15 @@ bool Fonction_Catpeur02()
   }
 }
 
-void Fonction_Diffuseur(bool state)
+void Fonction_Lumiere(int state)
 {
-  if(Diffuseur)
+  if(Lumiere)
   {
-    if(state == 1)
-    {
-      digitalWrite(Pin_Diffuseur, HIGH);
-    }
-    else
-    {
-      digitalWrite(Pin_Diffuseur, LOW);
-    }
+      analogWrite(Pin_Lumiere,state);
   }
-  else 
+  else
   {
-    digitalWrite(Pin_Diffuseur, LOW);
+      analogWrite(Pin_Lumiere,0);
   }
 }
 
@@ -47,18 +40,90 @@ void Fonction_Musique(bool state)
 {
   if(Musique)
   {
-    if(state == 1)
+    if(state)
     {
-      digitalWrite(Pin_Musique, LOW);
+      if(Vitesse_Musique == 1)
+      {
+        digitalWrite(Pin_Musique1, LOW);
+      }
+      else if(Vitesse_Musique == 2)
+      {
+        digitalWrite(Pin_Musique2, LOW);
+      }
+      else if(Vitesse_Musique == 3)
+      {
+        digitalWrite(Pin_Musique3, LOW);
+      }
     }
     else
     {
-      digitalWrite(Pin_Musique, HIGH);
+      digitalWrite(Pin_Musique1, HIGH);
+      digitalWrite(Pin_Musique2, HIGH);
+      digitalWrite(Pin_Musique3, HIGH);
     }
   }
   else
   {
-    digitalWrite(Pin_Musique, HIGH);
+    digitalWrite(Pin_Musique1, HIGH);
+    digitalWrite(Pin_Musique2, HIGH);
+    digitalWrite(Pin_Musique3, HIGH);
+  }
+}
+
+void Fonction_Souffle(bool state)
+{
+  if(Souffle)
+  {
+    if(state)
+    {
+      digitalWrite(Pin_Souffle,HIGH);
+    }
+    else
+    {
+      digitalWrite(Pin_Souffle,LOW);
+    }
+  }
+  else
+  {
+    digitalWrite(Pin_Souffle,LOW);
+  }
+}
+
+void Fonction_Moteur_Fermeture(bool state)
+{
+  if(Diffuseur)
+  {
+    if(state == 1)
+    {
+      digitalWrite(Pin_Moteur_Fermeture, HIGH);
+    }
+    else
+    {
+      digitalWrite(Pin_Moteur_Fermeture, LOW);
+    }
+  }
+  else 
+  {
+    digitalWrite(Pin_Moteur_Fermeture, LOW);
+  }
+}
+
+void Fonction_Moteur_Ouverture(bool state)
+{
+  if(Diffuseur)
+  {
+    if(state == 1)
+    {
+      digitalWrite(Pin_Moteur_Ouverture, HIGH);
+    }
+    else
+    {
+      digitalWrite(Pin_Moteur_Ouverture, LOW);
+    }
+  }
+  else 
+  {
+    digitalWrite(Pin_Moteur_Ouverture, LOW);
   }
 }
 
@@ -66,30 +131,37 @@ void Fonction_Ventilateur(bool state)
 {
   if(Ventilateur)
   {
-    if(state == 1)
+    if(state)
     {
-      digitalWrite(Pin_Ventilateur, HIGH);
+      digitalWrite(Pin_Ventilateur,HIGH);
     }
     else
     {
-      digitalWrite(Pin_Ventilateur, LOW);  
+      digitalWrite(Pin_Ventilateur,LOW);
     }
   }
   else
   {
-    digitalWrite(Pin_Ventilateur, LOW);  
+    digitalWrite(Pin_Ventilateur,LOW);
   }
 }
 
-void Fonction_Souffle(int state)
+void Fonction_Deshumidificateur(bool state)
 {
-  if(Souffle)
+  if(Deshumidificateur)
   {
-    analogWrite(Pin_Souffle,state);
+    if(state == 1)
+    {
+      digitalWrite(Pin_Deshumidificateur, HIGH);
+    }
+    else
+    {
+      digitalWrite(Pin_Deshumidificateur, LOW);  
+    }
   }
   else
   {
-    analogWrite(Pin_Souffle,0);
+    digitalWrite(Pin_Deshumidificateur, LOW);  
   }
 }
 
