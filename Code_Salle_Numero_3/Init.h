@@ -9,6 +9,7 @@ On crée les fonctions qui permet d'initialiser les périphériques et les rendr
 On gère aussi ici les différentes erreurs de timing qui pourrai avoir eu lieu dans Parametre.h
 */
 
+//Délaration des variables de Init.ino
 bool Led_Blink = 0;
 
 //Fonction du fichier Hardware.ino
@@ -19,9 +20,9 @@ bool Led_Blink = 0;
   */
   void Init();
   /*
-  Gère les timings issus de Parmetre.h 
+  Gère les timings issus de Parmetre.h et Calcule.h
   Il se peut que des temps ne sois pas cohérant entre eux.
-  S’il y a des erreurs il les indique dans la console.
+  S’il y a des erreurs il les indique dans la console (serial monitor 9600 baudes).
   Liste non exhaustive
   */
   void Timing_Warning();
