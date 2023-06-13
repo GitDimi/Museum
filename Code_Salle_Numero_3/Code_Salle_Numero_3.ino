@@ -1,20 +1,20 @@
 /*
-  Gestion de l'électronique de la salle 3 de l'expo sur le plateosorus
+  Gestion de l'électronique de la salle 3 de l'expo sur le plateosaurus
 
   Auteur : Dimitri Sigg
 
   Email : dimitri.sigg@outlook.com
 
-  Date : 06.06.2023
+  Date : 12.06.2023
 */
 
-//Permet d'ajouter les differant paramètre de ce programme
+//Permet d'ajouter les différents paramètres de ce programme
 #include "Parametre.h"
-//Permet d'ajouter les differant calcule de ce programme
+//Permet d'ajouter les différents calcules de ce programme
 #include "Calcule.h"
-//Permet d'ajouter les differant paramètre hardware de ce programme
+//Permet d'ajouter les différents paramètres hardware de ce programme
 #include "Hardware.h"
-//Permet d'ajouter les fonction d'initalisation 
+//Permet d'ajouter les fonctions d'initialisations 
 #include "Init.h"
 //Permet d'ajouter les fonctions logiques principal
 #include "Fonction.h"
@@ -46,3 +46,5 @@ void loop()
 
   Gestion_LED();
 }
+
+
