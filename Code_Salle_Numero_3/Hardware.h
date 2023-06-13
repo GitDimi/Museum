@@ -10,15 +10,16 @@ On crée les fonctions qui permet de contrôler les périphériques au bas nivea
 Les périphériques sont activés ou désactiver en fonction des paramètres du Parametre.h
 */
 
-//Pin d'entrée : 
+//Define pin d'entrée : 
   #define Capteur_de_mouvement_01 2
   #define Capteur_de_mouvement_02 3
 
-//Pin de sortie
-
-  #define Pin_Musique1 4
-  #define Pin_Musique2 5
-  #define Pin_Musique3 6
+//Define pin de sortie
+  #define Pin_Musique1 A0
+  #define Pin_Musique2 A1
+  #define Pin_Musique3 A2
+  #define Pin_Musique4 A3
+  #define Pin_Lumiere_DMX 6
   #define Pin_LED 7
   #define Pin_Moteur_Fermeture 8
   #define Pin_Moteur_Ouverture 9
@@ -27,7 +28,7 @@ Les périphériques sont activés ou désactiver en fonction des paramètres du 
   #define Pin_Souffle 12
   #define Pin_Deshumidificateur 13
 
-//Temps static
+//Define valeur static
   #define Temps_Moteur 730
 
 //Fonction du fichier Hardware.ino
@@ -43,14 +44,19 @@ Les périphériques sont activés ou désactiver en fonction des paramètres du 
   bool Fonction_Catpeur02();
   /*
   Gère l'intensité de la lumière
-  int : Valeur de l'intensité
+  (int) : Valeur de l'intensité
   */
   void Fonction_Lumiere(int);
     /*
-  Allume ou éteint la Musique. 
-  (bool) : L'état qui va être donnée à la Musique.
+  Allume ou éteint la lumière contrôlé par DMX. 
+  (bool) : L'état qui va être donnée à la lumière DMX.
   */
-  void Fonction_Musique(bool);
+  void Fonction_Lumiere_DMX(bool);
+    /*
+  Allume ou éteint la Musique. 
+  (int) : Le numéro de la tracks à jouer.
+  */
+  void Fonction_Musique(int);
   /*
   Ferme le diffuseur.
   (bool) : La valeur qui va être donnée au diffuseur.
@@ -83,3 +89,5 @@ Les périphériques sont activés ou désactiver en fonction des paramètres du 
   void Fonction_LED(bool);
 
 #endif 
+
+
