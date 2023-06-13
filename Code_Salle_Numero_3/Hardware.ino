@@ -36,23 +36,39 @@ void Fonction_Lumiere(int state)
   }
 }
 
-void Fonction_Musique(bool state)
+void Fonction_Lumiere_DMX(bool state)
+{
+  if(Lumiere_DMX)
+  {
+    digitalWrite(Pin_Lumiere_DMX,state);
+  }
+  else
+  {
+    digitalWrite(Pin_Lumiere_DMX,0);
+  }
+}
+
+void Fonction_Musique(int Type_Musique)
 {
   if(Musique)
   {
-    if(state)
+    if(Type_Musique != 0)
     {
-      if(Vitesse_Musique == 1)
+      if(Type_Musique == 1)
       {
         digitalWrite(Pin_Musique1, LOW);
       }
-      else if(Vitesse_Musique == 2)
+      else if(Type_Musique == 2)
       {
         digitalWrite(Pin_Musique2, LOW);
       }
-      else if(Vitesse_Musique == 3)
+      else if(Type_Musique == 3)
       {
         digitalWrite(Pin_Musique3, LOW);
+      }
+      else if(Type_Musique == 4)
+      {
+        digitalWrite(Pin_Musique4, LOW);
       }
     }
     else
@@ -60,6 +76,7 @@ void Fonction_Musique(bool state)
       digitalWrite(Pin_Musique1, HIGH);
       digitalWrite(Pin_Musique2, HIGH);
       digitalWrite(Pin_Musique3, HIGH);
+      digitalWrite(Pin_Musique4, HIGH);
     }
   }
   else
@@ -67,6 +84,7 @@ void Fonction_Musique(bool state)
     digitalWrite(Pin_Musique1, HIGH);
     digitalWrite(Pin_Musique2, HIGH);
     digitalWrite(Pin_Musique3, HIGH);
+    digitalWrite(Pin_Musique4, HIGH);
   }
 }
 
@@ -131,18 +149,18 @@ void Fonction_Ventilateur(bool state)
 {
   if(Ventilateur)
   {
-    if(state)
+    if(state == 1)
     {
-      digitalWrite(Pin_Ventilateur,HIGH);
+      digitalWrite(Pin_Ventilateur, HIGH);
     }
     else
     {
-      digitalWrite(Pin_Ventilateur,LOW);
+      digitalWrite(Pin_Ventilateur, LOW);
     }
   }
-  else
+  else 
   {
-    digitalWrite(Pin_Ventilateur,LOW);
+    digitalWrite(Pin_Ventilateur, LOW);
   }
 }
 
@@ -152,16 +170,16 @@ void Fonction_Deshumidificateur(bool state)
   {
     if(state == 1)
     {
-      digitalWrite(Pin_Deshumidificateur, HIGH);
+      digitalWrite(Pin_Deshumidificateur, LOW);
     }
     else
     {
-      digitalWrite(Pin_Deshumidificateur, LOW);  
+      digitalWrite(Pin_Deshumidificateur, HIGH);  
     }
   }
   else
   {
-    digitalWrite(Pin_Deshumidificateur, LOW);  
+    digitalWrite(Pin_Deshumidificateur, HIGH);  
   }
 }
 
