@@ -166,6 +166,7 @@ void Gestion_Lumiere()
   {
     Timer_Temps_Lumiere_Down = 0;
     Timer_Temps_Lumiere_Up = 0;
+    Timer_Temps_Lumiere_Pause = 0;
     Timer_Delay_Lumiere = 0;
     Lumiere_Down = 0;
     Lumiere_Up = 0;
