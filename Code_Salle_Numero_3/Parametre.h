@@ -19,17 +19,17 @@ GENERAL
 LUMIERE
 */
 //Après combien de temps on lance le cycle de lumière après le souffle
-#define Delay_Lumiere_Start 0
+#define Delay_Lumiere_Start 8800
 //Quelle est l'intensité de la lumière forte (de 0 à 255)
-#define Intensitie_Lumiere_Forte 75
+#define Intensitie_Lumiere_Forte 255
 //Quelle est l'intensité de la lumière forte (de 0 à 255) (d'expérience 0 à 12 = éteint)
-#define Intensitie_Lumiere_Faible 20
+#define Intensitie_Lumiere_Faible 13
 //Combien de temps allume-t-on la lumière en mode Forte
-#define Temps_Lumiere_Forte 8000 
+#define Temps_Lumiere_Forte 2000 
 //Combien de temps allume-t-on la lumière en mode faible 
-#define Temps_Lumiere_Faible 5000 
+#define Temps_Lumiere_Faible 9000 
 //Combien de temps laisse t’ont le mode faible avant de reprendre l'augmentation 
-#define Temps_Lumiere_Pause 2000 
+#define Temps_Lumiere_Pause 4000 
 /*
 Cela fonctionne en 3 temps 
 - On passe de Intensitie_Lumiere_Faible à Intensitie_Lumiere_Forte en Temps_Lumiere_Forte ms
@@ -41,7 +41,7 @@ Cela fonctionne en 3 temps
 MUSIQUE
 */
 //Combien de temps se lance la musique après le souffle 
-#define Delay_Musique_Start 0
+#define Delay_Musique_Start 2450
 
 /*
 SOUFFLE
@@ -65,7 +65,7 @@ VENTILATEUR
 //Combien de temps se lance le ventilateur après le souffle 
 #define Delay_Ventilateur_Start 8000
 //Le pourcentage de vitesse du ventilateur (non-linaire à faire au jugé)
-#define Vitesse_Ventilateur 95
+#define Vitesse_Ventilateur 100
 //Combien de temps dure une ventilation (Ventilateur allumé)
 #define Temps_Ventilateur 9000
 
@@ -100,5 +100,4 @@ Activer ou désactiver les périphériques
 #define Lumiere 1
 //Lumière en mode DMX
 #define Lumiere_DMX 1
-
 
