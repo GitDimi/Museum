@@ -172,6 +172,7 @@ void Gestion_Lumiere()
     Lumiere_Up = 0;
     Old_State_Timer_Delay_Lumiere = 0;
     Fonction_Lumiere(Intensitie_Lumiere_Faible); 
+    Timer_Temps_Lumiere_Down_Save = 0;
   }
 }
 
